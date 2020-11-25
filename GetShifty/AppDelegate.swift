@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error initializing new realm, \(error)")
         }
         print(Realm.Configuration.defaultConfiguration.fileURL)
+
+        UITabBar.appearance().unselectedItemTintColor = #colorLiteral(red: 0.9572464824, green: 0.9103800654, blue: 0.8337891698, alpha: 1)
+//        UITabBarItem.appearance().([NSAttributedString.Key.foregroundColor : UIColor.red], for: .normal)
         return true
     }
 

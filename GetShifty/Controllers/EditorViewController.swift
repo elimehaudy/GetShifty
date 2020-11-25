@@ -23,6 +23,7 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
     var changedKey: String?
     var changedValue: Any?
     
+    var calculator = Calculator()
     var shiftManager = ShiftManager()
     var selectedShift: Shift? {
         didSet {
@@ -30,10 +31,6 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
                 self.showShiftDetails()
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     override func viewDidLoad() {
@@ -73,6 +70,7 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         if controlWasChanged {
+            recalculateSalary()
             try! realm.write{
                 if didRecalculateHours {
                     selectedShift!.totalHours = Double(totalHoursLabel.text!)!
@@ -93,7 +91,7 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
         }))
         present(alert, animated: true, completion: nil)
     }
-
+    
     //MARK: - UITextField Delegate Methods
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -101,68 +99,47 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        recalculateSalary()
+        if controlWasChanged {
+            recalculateSalary()
+        }
     }
     
     @objc func controlDidChange(_ control: UIControl) {
-        controlWasChanged = true
-        try! realm.write{
-            if control.isKind(of: UIDatePicker.self) {
-                if control.tag == 1 {
-                    selectedShift!.startingDate = startingDatePicker.date
-                } else if control.tag == 2 {
-                    selectedShift!.endingDate = endingDatePicker.date
-                }
-                recalculateHours()
-            } else if control.isKind(of: UITextField.self) {
-                if control.tag == 3 {
-                    selectedShift!.salaryPerHour = Double(salaryPerHourTextField.text!) ?? 0
-                } else if control.tag == 4 {
-                    selectedShift!.tips = Double(tipsTextField.text!) ?? 0
+        let datesAreCorrect = calculator.checkDates(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date)
+        if datesAreCorrect {
+            controlWasChanged = true
+            try! realm.write{
+                if control.isKind(of: UIDatePicker.self) {
+                    if control.tag == 1 {
+                        selectedShift!.startingDate = startingDatePicker.date
+                    } else if control.tag == 2 {
+                        selectedShift!.endingDate = endingDatePicker.date
+                    }
+                    recalculateHours()
+                } else if control.isKind(of: UITextField.self) {
+                    if control.tag == 3 {
+                        selectedShift!.salaryPerHour = Double(salaryPerHourTextField.text!) ?? 0
+                    } else if control.tag == 4 {
+                        selectedShift!.tips = Double(tipsTextField.text!) ?? 0
+                    }
                 }
             }
+        } else {
+            let alert = UIAlertController(title: "", message: "Starting date can't be equal or later than ending date", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
     
     func recalculateHours(){
         didRecalculateHours = true
-        shiftManager.calculateTotalHours(between: startingDatePicker.date, endingDatePicker.date)
-        totalHoursLabel.text = shiftManager.totalHoursString
+        calculator.calculateTotalHours(between: startingDatePicker.date, endingDatePicker.date)
+        totalHoursLabel.text = calculator.totalHoursString
     }
     
     func recalculateSalary() {
-        shiftManager.totalHours = Double(totalHoursLabel.text!)!
-        shiftManager.calculateTotalSalary(salaryPerHour: selectedShift!.salaryPerHour, tips: selectedShift!.tips)
-        totalSalaryLabel.text = String(shiftManager.totalSalary)
-    }
-}
-
-extension UITextFieldDelegate {
-    
-    func limitDecimalPoint(_ string: String, _ textField: UITextField) -> Bool {
-        switch string {
-        case "0","1","2","3","4","5","6","7","8","9":
-            return true
-        case ".":
-            let array = Array(textField.text!)
-            var decimalCount = 0
-            for character in array {
-                if character == "." {
-                    decimalCount += 1
-                }
-            }
-            
-            if decimalCount == 1 {
-                return false
-            } else {
-                return true
-            }
-        default:
-            let array = Array(string)
-            if array.count == 0 {
-                return true
-            }
-            return false
-        }
+        calculator.totalHours = Double(totalHoursLabel.text!)!
+        calculator.calculateTotalSalary(salaryPerHour: selectedShift!.salaryPerHour, tips: selectedShift!.tips)
+        totalSalaryLabel.text = String(calculator.totalSalary)
     }
 }

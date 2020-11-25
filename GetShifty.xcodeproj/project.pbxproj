@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		41589B5E367B968986AB3DFC /* Pods_GetShifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2962A847FEC26FFE170108 /* Pods_GetShifty.framework */; };
+		AD5400EB256534530076807C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5400EA256534520076807C /* Extensions.swift */; };
+		AD5400F025654B8C0076807C /* Verona.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD5400EF25654B8B0076807C /* Verona.ttf */; };
+		AD5400F325681F530076807C /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5400F225681F520076807C /* Calculator.swift */; };
+		AD5400F6256821C30076807C /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5400F5256821C30076807C /* SummaryViewController.swift */; };
 		ADDEA0C6255AE7CC0085FC13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA0C5255AE7CC0085FC13 /* AppDelegate.swift */; };
 		ADDEA0C8255AE7CC0085FC13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA0C7255AE7CC0085FC13 /* SceneDelegate.swift */; };
 		ADDEA0CA255AE7CC0085FC13 /* CreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA0C9255AE7CC0085FC13 /* CreatorViewController.swift */; };
@@ -24,6 +28,10 @@
 		1B2962A847FEC26FFE170108 /* Pods_GetShifty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetShifty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26367D6250C26BC76E7FB2A6 /* Pods-GetShifty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetShifty.debug.xcconfig"; path = "Target Support Files/Pods-GetShifty/Pods-GetShifty.debug.xcconfig"; sourceTree = "<group>"; };
 		27C9E89409B50B18F2296286 /* Pods-GetShifty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetShifty.release.xcconfig"; path = "Target Support Files/Pods-GetShifty/Pods-GetShifty.release.xcconfig"; sourceTree = "<group>"; };
+		AD5400EA256534520076807C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		AD5400EF25654B8B0076807C /* Verona.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Verona.ttf; sourceTree = "<group>"; };
+		AD5400F225681F520076807C /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		AD5400F5256821C30076807C /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		ADDEA0C2255AE7CC0085FC13 /* GetShifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetShifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADDEA0C5255AE7CC0085FC13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADDEA0C7255AE7CC0085FC13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,10 +58,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD5400EE25654B570076807C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AD5400EF25654B8B0076807C /* Verona.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		ADDEA0B9255AE7CC0085FC13 = {
 			isa = PBXGroup;
 			children = (
 				ADDEA0C4255AE7CC0085FC13 /* GetShifty */,
+				AD5400EE25654B570076807C /* Fonts */,
 				ADDEA0C3255AE7CC0085FC13 /* Products */,
 				E57649B3A3BEBC11799B74D3 /* Pods */,
 				CC443901AF0E4A51413B989D /* Frameworks */,
@@ -73,6 +90,7 @@
 			children = (
 				ADDEA0C5255AE7CC0085FC13 /* AppDelegate.swift */,
 				ADDEA0C7255AE7CC0085FC13 /* SceneDelegate.swift */,
+				AD5400EA256534520076807C /* Extensions.swift */,
 				ADDEA0E1255AF40D0085FC13 /* Controllers */,
 				ADDEA0E3255AF4180085FC13 /* View */,
 				ADDEA0E0255AF3FC0085FC13 /* Model */,
@@ -88,6 +106,7 @@
 			children = (
 				ADDEA0E4255AF4320085FC13 /* Shift.swift */,
 				ADDEA0E7255AF6AB0085FC13 /* ShiftManager.swift */,
+				AD5400F225681F520076807C /* Calculator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -98,6 +117,7 @@
 				ADDEA0C9255AE7CC0085FC13 /* CreatorViewController.swift */,
 				ADDEA0EA255B0A750085FC13 /* ShiftsTableViewController.swift */,
 				ADDEA0EE255B59CA0085FC13 /* EditorViewController.swift */,
+				AD5400F5256821C30076807C /* SummaryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -187,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADDEA0D2255AE7CE0085FC13 /* LaunchScreen.storyboard in Resources */,
+				AD5400F025654B8C0076807C /* Verona.ttf in Resources */,
 				ADDEA0CF255AE7CE0085FC13 /* Assets.xcassets in Resources */,
 				ADDEA0CD255AE7CC0085FC13 /* Main.storyboard in Resources */,
 			);
@@ -244,10 +265,13 @@
 				ADDEA0E5255AF4320085FC13 /* Shift.swift in Sources */,
 				ADDEA0CA255AE7CC0085FC13 /* CreatorViewController.swift in Sources */,
 				ADDEA0E8255AF6AB0085FC13 /* ShiftManager.swift in Sources */,
+				AD5400EB256534530076807C /* Extensions.swift in Sources */,
 				ADDEA0C6255AE7CC0085FC13 /* AppDelegate.swift in Sources */,
+				AD5400F325681F530076807C /* Calculator.swift in Sources */,
 				ADDEA0EB255B0A750085FC13 /* ShiftsTableViewController.swift in Sources */,
 				ADDEA0C8255AE7CC0085FC13 /* SceneDelegate.swift in Sources */,
 				ADDEA0EF255B59CA0085FC13 /* EditorViewController.swift in Sources */,
+				AD5400F6256821C30076807C /* SummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

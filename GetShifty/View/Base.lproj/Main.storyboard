@@ -3,12 +3,102 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Editor View Controller-->
+        <!--Summary-->
+        <scene sceneID="o5z-yw-hs9">
+            <objects>
+                <viewController id="wfc-NJ-xRD" customClass="SummaryViewController" customModule="GetShifty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VUt-eb-i0d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Od8-hO-KIb">
+                                <rect key="frame" x="90" y="182" width="234" height="86"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97647058819999999" green="0.70196078429999997" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shifts:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLw-Pb-rY3">
+                                <rect key="frame" x="90" y="347" width="49" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTg-ea-gx5">
+                                <rect key="frame" x="90" y="388" width="51" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tips:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6t-7j-Q9O">
+                                <rect key="frame" x="90" y="438" width="37" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Salary:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKu-Ah-Yi5">
+                                <rect key="frame" x="90" y="479" width="93" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9999" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b2v-Zh-bTO">
+                                <rect key="frame" x="163" y="347" width="72" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9999" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UZl-b0-S1I">
+                                <rect key="frame" x="163" y="388" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9999" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="frJ-s5-fek">
+                                <rect key="frame" x="163" y="438" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9999" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-Qb-tbX">
+                                <rect key="frame" x="191" y="479" width="74" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8Cw-bU-32r"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.89019607840000003" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Summary" selectedImage="dollarsign.circle.fill" catalog="system" id="3F5-d9-QWT">
+                        <imageReference key="image" image="dollarsign.circle" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="pickerView" destination="Od8-hO-KIb" id="EAd-ic-bVx"/>
+                        <outlet property="totalHoursLabel" destination="UZl-b0-S1I" id="iMO-Xx-NTr"/>
+                        <outlet property="totalSalaryLabel" destination="4f4-Qb-tbX" id="pN4-bk-BMe"/>
+                        <outlet property="totalShiftsLabel" destination="b2v-Zh-bTO" id="Iiq-St-Fel"/>
+                        <outlet property="totalTipsLabel" destination="frJ-s5-fek" id="0Xo-sI-Q9R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eXr-QV-jNK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1202.8985507246377" y="293.97321428571428"/>
+        </scene>
+        <!--GetShifty-->
         <scene sceneID="NqS-QN-wqo">
             <objects>
                 <viewController id="21Z-uV-spA" customClass="EditorViewController" customModule="GetShifty" customModuleProvider="target" sceneMemberID="viewController">
@@ -174,7 +264,7 @@
                             <constraint firstItem="phG-U2-L9c" firstAttribute="leading" secondItem="tV0-GO-9Cf" secondAttribute="leading" id="yKg-kg-hix"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="yxg-og-Csb">
+                    <navigationItem key="navigationItem" title="GetShifty" largeTitleDisplayMode="always" id="yxg-og-Csb">
                         <barButtonItem key="rightBarButtonItem" title="Edit" style="done" id="nYf-s4-Eq8">
                             <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -191,7 +281,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="40P-yM-hGO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="0On-Qe-4eg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1114.4927536231885" y="-126.5625"/>
+            <point key="canvasLocation" x="2151" y="-101"/>
         </scene>
         <!--GetShifty-->
         <scene sceneID="igS-Zn-kni">
@@ -233,15 +323,12 @@
                         <viewLayoutGuide key="safeArea" id="5nW-Nh-1cm"/>
                         <color key="backgroundColor" red="0.79215686269999996" green="0.31764705879999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="List" selectedImage="list.bullet.rectangle" catalog="system" id="Sqc-rc-H6J">
+                        <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="GetShifty" leftItemsSupplementBackButton="YES" id="eh4-xK-Gq7">
                         <barButtonItem key="backBarButtonItem" title="Back" style="done" id="afJ-dI-lFF">
                             <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" style="done" id="JIw-Zl-d6S">
-                            <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="0Kw-8z-o7t"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -251,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lix-fE-64D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292.75362318840581" y="77.678571428571431"/>
+            <point key="canvasLocation" x="1203" y="-437"/>
         </scene>
         <!--Creator View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -391,7 +478,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="cZA-bu-JdU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1114.4927536231885" y="513.61607142857144"/>
+            <point key="canvasLocation" x="293" y="-613"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nUD-Mm-sA0">
@@ -403,23 +490,60 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.792156862745098" green="0.31764705882352939" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="26"/>
                             <color key="textColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textShadowColor" red="0.94509803920000002" green="0.89019607840000003" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="1"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="2"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="lr1-s0-20C" kind="relationship" relationship="rootViewController" id="neI-rS-oGY"/>
+                        <segue destination="u9K-Z6-hYE" kind="relationship" relationship="rootViewController" id="neI-rS-oGY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjb-Yk-odW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-617.39130434782612" y="77.678571428571431"/>
         </scene>
+        <!--GetShifty-->
+        <scene sceneID="WRT-Xs-T9g">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="u9K-Z6-hYE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="GetShifty" id="fRD-Tz-Any">
+                        <barButtonItem key="backBarButtonItem" title="Back" style="done" id="mGZ-Q3-OZA">
+                            <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" style="done" id="1pa-SU-esm">
+                            <color key="tintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="3qR-vL-wyo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PWn-H6-azR">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.94509803920000002" green="0.89019607840000003" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.79215686269999996" green="0.31764705879999999" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.34509803919999998" green="0.10980392160000001" blue="0.047058823530000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="lr1-s0-20C" kind="relationship" relationship="viewControllers" id="2Kx-ZB-tcV"/>
+                        <segue destination="wfc-NJ-xRD" kind="relationship" relationship="viewControllers" id="cHn-it-GJP"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="98D-7P-FPh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="292.75362318840581" y="77.678571428571431"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="dollarsign.circle" catalog="system" width="128" height="121"/>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
+        <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

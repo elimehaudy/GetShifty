@@ -16,6 +16,7 @@ class CreatorViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addButton: UIButton!
     
     var shiftManager = ShiftManager()
+    var calculator = Calculator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,27 +25,19 @@ class CreatorViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        if checkDates(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date) {
-            shiftManager.calculateTotalHours(between: startingDatePicker.date, endingDatePicker.date)
-            shiftManager.calculateTotalSalary(salaryPerHour: Double(salaryPerHourTextField.text!) ?? 0, tips: Double(tipsTextField.text!) ?? 0)
+        if calculator.checkDates(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date) {
+            calculator.calculateTotalHours(between: startingDatePicker.date, endingDatePicker.date)
+            calculator.calculateTotalSalary(salaryPerHour: Double(salaryPerHourTextField.text!) ?? 0, tips: Double(tipsTextField.text!) ?? 0)
             
-            let newShift = shiftManager.createNewShift(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date, shiftTotalHours: shiftManager.totalHours, salaryPerHour: Double(salaryPerHourTextField.text!) ?? 0, totalSalary: shiftManager.totalSalary, tips: Double(tipsTextField.text!) ?? 0)
+            let newShift = shiftManager.createNewShift(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date, shiftTotalHours: calculator.totalHours, salaryPerHour: Double(salaryPerHourTextField.text!) ?? 0, totalSalary: calculator.totalSalary, tips: Double(tipsTextField.text!) ?? 0)
             shiftManager.saveShift(newShift)
             
             performSegue(withIdentifier: "goBack2", sender: self)
-        }
-        
-    }
-    
-    func checkDates(startingDate: Date, endingDate: Date) -> Bool{
-        var datesAreCorrect = true
-        if startingDate >= endingDate {
-            datesAreCorrect = false
+        } else {
             let alert = UIAlertController(title: "", message: "Starting date can't be equal or later than ending date", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
-        return datesAreCorrect
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
