@@ -23,6 +23,10 @@ class ShiftsTableViewController: UIViewController, UITableViewDataSource, UITabl
         calculator.groupShiftWithMonth()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     //MARK: - Segue Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

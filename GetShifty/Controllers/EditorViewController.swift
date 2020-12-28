@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class EditorViewController: UIViewController, UITextFieldDelegate {
     
@@ -17,70 +16,45 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var totalHoursLabel: UILabel!
     @IBOutlet weak var totalSalaryLabel: UILabel!
     
-    let realm = try! Realm()
-    var controlWasChanged = false
-    var didRecalculateHours = false
-    var changedKey: String?
-    var changedValue: Any?
-    
     var calculator = Calculator()
     var shiftManager = ShiftManager()
-    var selectedShift: Shift? {
-        didSet {
-            DispatchQueue.main.async {
-                self.showShiftDetails()
-            }
-        }
-    }
+    var selectedShift: Shift?
+    
+    var key = String()
+    var value: Any?
+    var valueChanged = false
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        initView()
+    }
+    
+    func initView() {
         salaryPerHourTextField.delegate = self
         tipsTextField.delegate = self
+        addTargetsToControls()
+        showShiftDetails()
+    }
+    
+    func addTargetsToControls() {
         startingDatePicker.addTarget(self, action: #selector(controlDidChange(_:)), for: .valueChanged)
+        startingDatePicker.addTarget(self, action: #selector(checkDatePicker), for: .editingDidEnd)
         endingDatePicker.addTarget(self, action: #selector(controlDidChange(_:)), for: .valueChanged)
+        endingDatePicker.addTarget(self, action: #selector(checkDatePicker), for: .editingDidEnd)
         salaryPerHourTextField.addTarget(self, action: #selector(controlDidChange(_:)), for: .editingChanged)
         tipsTextField.addTarget(self, action: #selector(controlDidChange(_:)), for: .editingChanged)
-        
-        let backItem = UIBarButtonItem(title: "Custom", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backItem
     }
     
     func showShiftDetails() {
-        if let selectedShiftUnwrapped = selectedShift {
-            matchViewWithData(view: startingDatePicker, data: selectedShiftUnwrapped.startingDate)
-            matchViewWithData(view: endingDatePicker, data: selectedShiftUnwrapped.endingDate)
-            matchViewWithData(view: salaryPerHourTextField, data: String(selectedShiftUnwrapped.salaryPerHour))
-            matchViewWithData(view: tipsTextField, data: String(selectedShiftUnwrapped.tips))
-            matchViewWithData(view: totalHoursLabel, data: String(selectedShiftUnwrapped.totalHours))
-            matchViewWithData(view: totalSalaryLabel, data: String(selectedShiftUnwrapped.totalSalary))
-        }
-    }
-    
-    func matchViewWithData(view: UIView, data: Any?) {
-        if let datePicker = view as? UIDatePicker {
-            datePicker.date = data as! Date
-        } else if let textField = view as? UITextField{
-            textField.text = (data as! String)
-        } else if let label = view as? UILabel {
-            label.text = (data as! String)
+        if let safeShift = selectedShift {
+            startingDatePicker.date = safeShift.startingDate
+            endingDatePicker.date = safeShift.endingDate
+            salaryPerHourTextField.text = String(safeShift.salaryPerHour)
+            tipsTextField.text = String(safeShift.tips)
+            totalHoursLabel.text = String(safeShift.totalHours)
+            totalSalaryLabel.text = String(safeShift.totalSalary)
         }
     }
     //MARK: - UIButton actions
-    
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
-        if controlWasChanged {
-            recalculateSalary()
-            try! realm.write{
-                if didRecalculateHours {
-                    selectedShift!.totalHours = Double(totalHoursLabel.text!)!
-                }
-                selectedShift!.totalSalary = Double(totalSalaryLabel.text!)!
-            }
-            shiftManager.updateShift(shift: selectedShift!)
-        }
-        performSegue(withIdentifier: "goBack", sender: self)
-    }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "Delete Shift", message: "Are you sure you want to delete this shift?", preferredStyle: .actionSheet)
@@ -92,54 +66,69 @@ class EditorViewController: UIViewController, UITextFieldDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: - UITextField Delegate Methods
+    //MARK: - UIControl Related Delegate Methods
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return limitDecimalPoint(string, textField)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if controlWasChanged {
-            recalculateSalary()
-        }
-    }
-    
     @objc func controlDidChange(_ control: UIControl) {
-        let datesAreCorrect = calculator.checkDates(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date)
-        if datesAreCorrect {
-            controlWasChanged = true
-            try! realm.write{
-                if control.isKind(of: UIDatePicker.self) {
-                    if control.tag == 1 {
-                        selectedShift!.startingDate = startingDatePicker.date
-                    } else if control.tag == 2 {
-                        selectedShift!.endingDate = endingDatePicker.date
-                    }
-                    recalculateHours()
-                } else if control.isKind(of: UITextField.self) {
-                    if control.tag == 3 {
-                        selectedShift!.salaryPerHour = Double(salaryPerHourTextField.text!) ?? 0
-                    } else if control.tag == 4 {
-                        selectedShift!.tips = Double(tipsTextField.text!) ?? 0
-                    }
-                }
+        switch control.tag {
+        case 1:
+            key = "startingDate"
+            value = startingDatePicker.date
+        case 2:
+            key = "endingDate"
+            value = endingDatePicker.date
+        case 3:
+            key = "salaryPerHour"
+            value = Double(salaryPerHourTextField.text!) ?? 0
+        case 4:
+            key = "tips"
+            value = Double(tipsTextField.text!) ?? 0
+        default:
+            -1
+        }
+        valueChanged = true
+    }
+    
+    @objc func checkDatePicker() {
+        if valueChanged {
+            let datesAreCorrect = calculator.checkDates(startingDate: startingDatePicker.date, endingDate: endingDatePicker.date)
+            if datesAreCorrect {
+                shiftManager.updateShift(shift: selectedShift!, changedValue: value!, forKey: key)
+                calculateUpdatedHours()
+                valueChanged = false
             }
-        } else {
-            let alert = UIAlertController(title: "", message: "Starting date can't be equal or later than ending date", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            else {
+                let alert = UIAlertController(title: "", message: "Starting date can't be equal or later than ending date", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
         }
     }
     
-    func recalculateHours(){
-        didRecalculateHours = true
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if valueChanged {
+            shiftManager.updateShift(shift: selectedShift!, changedValue: value!, forKey: key)
+            calculateUpdatedSalary()
+            valueChanged = false
+        }
+    }
+    
+    //MARK: - Shift Update Methods
+    
+    func calculateUpdatedHours() {
         calculator.calculateTotalHours(between: startingDatePicker.date, endingDatePicker.date)
         totalHoursLabel.text = calculator.totalHoursString
+        shiftManager.updateShift(shift: selectedShift!, changedValue: calculator.totalHours, forKey: "totalHours")
+        calculateUpdatedSalary()
     }
     
-    func recalculateSalary() {
+    func calculateUpdatedSalary() {
         calculator.totalHours = Double(totalHoursLabel.text!)!
-        calculator.calculateTotalSalary(salaryPerHour: selectedShift!.salaryPerHour, tips: selectedShift!.tips)
-        totalSalaryLabel.text = String(calculator.totalSalary)
+        calculator.calculateTotalSalary(salaryPerHour: selectedShift?.salaryPerHour ?? 0, tips: selectedShift?.tips ?? 0)
+        totalSalaryLabel.text = calculator.totalSalaryString
+        shiftManager.updateShift(shift: selectedShift!, changedValue: calculator.totalSalary, forKey: "totalSalary")
     }
 }

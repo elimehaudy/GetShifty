@@ -11,6 +11,7 @@ import RealmSwift
 struct ShiftManager {
     let realm = try! Realm()
     var shifts: Results<Shift>?
+    lazy var shift = Shift()
     
     func createNewShift(startingDate: Date, endingDate: Date, shiftTotalHours: Double, salaryPerHour: Double, totalSalary: Double, tips: Double) -> Shift {
         let newShift = Shift()
@@ -23,6 +24,10 @@ struct ShiftManager {
         newShift.tips = tips
         
         return newShift
+    }
+    
+    mutating func createNewShift(shift: Shift) {
+        self.shift = shift
     }
     
     func saveShift(_ shift: Shift) {
@@ -39,9 +44,10 @@ struct ShiftManager {
         shifts = realm.objects(Shift.self).sorted(byKeyPath: "startingDate", ascending: true)
     }
     
-    func updateShift(shift: Shift) {
+    func updateShift(shift: Shift, changedValue: Any, forKey key: String) {
         try! realm.write{
-            realm.create(Shift.self, value: shift, update: .modified)
+            shift.setValue(changedValue, forKey: key)
+//            realm.create(Shift.self, value: shift, update: .modified)
         }
     }
     

@@ -17,9 +17,11 @@ struct Calculator {
     var totalSalary: Double = 0
     var totalHours: Double = 0
     var totalHoursString: String?
+    var totalSalaryString: String?
     
     mutating func calculateTotalSalary(salaryPerHour: Double, tips: Double) {
         totalSalary = (ceil((salaryPerHour * totalHours) * 100) / 100) + tips
+        totalSalaryString = String(format: "%.2f", totalSalary)
     }
     
     mutating func calculateTotalHours(between date1: Date, _ date2: Date) {

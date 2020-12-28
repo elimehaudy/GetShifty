@@ -44,4 +44,3 @@ class CreatorViewController: UIViewController, UITextFieldDelegate {
         return limitDecimalPoint(string, textField)
     }
 }
-

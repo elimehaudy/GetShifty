@@ -8,7 +8,6 @@
 import UIKit
 
 extension UITextFieldDelegate {
-    
     func limitDecimalPoint(_ string: String, _ textField: UITextField) -> Bool {
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
@@ -38,7 +37,6 @@ extension UITextFieldDelegate {
 }
 
 extension String {
-    
     func countInstances(of stringToFind: String) -> Int {
         var stringToSearch = self
         var count = 0

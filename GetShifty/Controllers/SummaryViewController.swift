@@ -36,7 +36,6 @@ class SummaryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("didAppear")
         shiftManager.loadShifts()
         calculator.groupByMonth(shifts: shiftManager.shifts)
         calculator.groupShiftWithMonth()
@@ -60,11 +59,12 @@ class SummaryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         let selectedTitle = pickerView.selectedRow(inComponent: 0)
         if let shifts = calculator.groupedShifts?[(calculator.months?[selectedTitle])!] {
             monthlyShiftCount = shifts.count
-            for shift in shifts {
-                monthlyHours += shift.totalHours
-                monthlyTips += shift.tips
-                monthlySalary += shift.totalSalary
-            }
+            var hoursArray = shifts.filter({return $0.totalHours > 3.0 })
+            //            for shift in shifts {
+//                monthlyHours += shift.totalHours
+//                monthlyTips += shift.tips
+//                monthlySalary += shift.totalSalary
+//            }
         }
     }
     
@@ -83,7 +83,7 @@ class SummaryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let keys = calculator.groupedShifts?.keys.sorted() {
+        if let keys = calculator.groupedShifts?.keys.sorted(by: >) {
             for date in keys {
                 let stringDate = calculator.formatDate(date, format: "MMMM yyyy")
                 stringDatesArray.append(stringDate!)
